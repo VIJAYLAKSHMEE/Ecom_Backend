@@ -6,7 +6,20 @@ const cartRouter = require('./Routes/cartRoutes');
 
 const app = express();
 
-app.use(cors())
+const allowedOrigins=[ecom-frontend-exz7aznk1-vijayalkshmees-projects.vercel.app,ecom-frontend-pearl.vercel.app
+]
+app.use(cors({
+    
+        origin: function (origin, callback) {
+          if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+          } else {
+            callback(new Error("Not allowed by CORS"));
+          }
+        },
+        credentials: true, // Allows cookies and authentication headers if needed
+      }
+))
 app.use(express.json())
 app.use("/auth",router)
 app.use("/cart",cartRouter)
